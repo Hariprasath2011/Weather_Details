@@ -10,15 +10,6 @@ import java.io.FileReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Service responsible for reading weather data from a CSV file
- * and persisting it to the database in efficient batches.
- *
- * Expected CSV column order:
- * date, temperature, humidity, pressure, heatIndex, weatherCondition
- */
-@Service
 @RequiredArgsConstructor
 public class CsvProcessingService {
 
@@ -26,16 +17,9 @@ public class CsvProcessingService {
 
     private final WeatherRepository repository;
 
-    /**
-     * Loads weather records from the specified CSV file path.
-     * Skips the header row and saves records in batches of {@value BATCH_SIZE}.
-     *
-     * @param filePath absolute path to the CSV file
-     * @throws Exception if the file cannot be read or parsed
-     */
     public void loadCsv(String filePath) throws Exception {
         try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
-            reader.readNext(); // skip header row
+            reader.readNext(); 
 
             List<Weather> batch = new ArrayList<>();
             String[] line;
