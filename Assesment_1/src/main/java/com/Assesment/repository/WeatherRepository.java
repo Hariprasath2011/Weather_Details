@@ -10,15 +10,11 @@ import java.util.List;
 
 public interface WeatherRepository extends JpaRepository<Weather, Long> {
 
-    // Find all records for a specific date
     List<Weather> findByDate(LocalDate date);
 
-    // Find all records for a specific month (across all years)
     @Query("SELECT w FROM Weather w WHERE MONTH(w.date) = :month")
     List<Weather> findByMonth(@Param("month") int month);
 
-    // Get monthly temperature stats for a given year — MySQL compatible
-    // Returns: [month, maxTemp, minTemp] grouped by month
     @Query(value = """
                 SELECT MONTH(date) AS month,
                        MAX(temperature) AS maxTemp,
@@ -30,8 +26,6 @@ public interface WeatherRepository extends JpaRepository<Weather, Long> {
             """, nativeQuery = true)
     List<Object[]> getMonthlyMaxMin(@Param("year") int year);
 
-    // Get all temperatures for a specific month and year (for median calculation in
-    // Java)
     @Query(value = """
                 SELECT temperature
                 FROM weather
