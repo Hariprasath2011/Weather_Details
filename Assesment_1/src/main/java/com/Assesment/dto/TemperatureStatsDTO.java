@@ -1,8 +1,4 @@
 package com.Assesment.dto;
-
-/**
- * DTO for monthly temperature statistics: max, min, and median temperatures.
- */
 public class TemperatureStatsDTO {
 
 	private Integer month;
